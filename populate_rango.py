@@ -1,4 +1,7 @@
 import os
+from random import seed
+import random
+seed(1)
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tango_with_django_project.settings')
 
@@ -51,7 +54,7 @@ def populate():
         c = add_cat(cat, views=cat_data['views'] if 'views' in cat_data else 0, likes=cat_data['likes'] if 'likes' in
                                                                                                            cat_data else 0)
         for p in cat_data['pages']:
-            add_page(c, p['title'], p['url'])
+            add_page(c, p['title'], p['url'], views=random.randint(1,100))
 
     # Print out the categories we have added.
     for c in Category.objects.all():
