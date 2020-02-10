@@ -1,36 +1,66 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>-->
 
-<head>
-    <title>Rango</title>
-</head>
+{% extends 'rango/base.html' %}
+{% load staticfiles %}
 
-
-<body>
-    <div>
-        {%if category %}
-        <h1>{{ category.name }}</h1>
-        {% if pages %}
-        <ul>
-            {% for page in pages %}
-            <li><a href="{{ page.url }}"> {{ page.title }}</a></li>
-            {% endfor %}
-        </ul>
-        {% else %}
-        <strong>No pages currently in category.</strong>
-        {% endif %}
+{% block title_block %}
+    {% if category %}
+        {{ category.name }}
     {% else %}
-        The specified category does not exist.
+        Unknown Category
     {% endif %}
-    </div>
+{% endblock %}
 
-    <div>
-         <a href="/rango/category/{{category.slug }}/add_page/">Add Page</a>
-    </div>
+{% block body_block %}
+    {% if category %}
+    <h1>{{ category.name }}</h1>
+    {% if pages %}
+    <ul>
+        {% for page in pages %}
+        <li><a href="{{ page.url }}">{{ page.title }}</a></li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <strong>No pages currently in category.</strong>
+    {% endif %}
 
-    <div>
-        <a href="/rango/">Rango</a><br />
-    </div>
+    <a href="{% url 'rango:add_page' category.slug %}">Add Page</a> <br />
+    {% else %}
+    The specified category does not exist.
+    {% endif %}
+{% endblock %}
 
-</body>
+<!--<head>-->
+    <!--<title>Rango</title>-->
+<!--</head>-->
 
-</html>
+
+<!--<body>-->
+    <!--<div>-->
+        <!--{%if category %}-->
+        <!--<h1>{{ category.name }}</h1>-->
+        <!--{% if pages %}-->
+        <!--<ul>-->
+            <!--{% for page in pages %}-->
+            <!--<li><a href="{{ page.url }}"> {{ page.title }}</a></li>-->
+            <!--{% endfor %}-->
+        <!--</ul>-->
+        <!--{% else %}-->
+        <!--<strong>No pages currently in category.</strong>-->
+        <!--{% endif %}-->
+    <!--{% else %}-->
+        <!--The specified category does not exist.-->
+    <!--{% endif %}-->
+    <!--</div>-->
+
+    <!--<div>-->
+         <!--<a href="/rango/category/{{category.slug }}/add_page/">Add Page</a>-->
+    <!--</div>-->
+
+    <!--<div>-->
+        <!--<a href="/rango/">Rango</a><br />-->
+    <!--</div>-->
+
+<!--</body>-->
+
+<!--</html>-->
